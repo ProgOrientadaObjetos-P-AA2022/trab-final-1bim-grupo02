@@ -5,44 +5,47 @@
  */
 package paquete03;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  *
  * @author reroes
  */
-public class Barrio {
+public class Barrio implements Serializable{
 
-    private String [] nombreBarrio;
-    private String [] referencia;
+    private ArrayList <String> nombreBarrio;
+    private ArrayList <String> referencia;
 
-    public Barrio(String [] a, String [] b) {
+    public Barrio(ArrayList<String> a, ArrayList<String> b) {
         nombreBarrio = a;
         referencia = b;
     }
 
-    public void establecerNombreBarrio(String [] a) {
+    public void establecerNombreBarrio(ArrayList<String> a) {
         nombreBarrio = a;
     }
 
-    public void establecerReferencia(String [] a) {
+    public void establecerReferencia(ArrayList<String> a) {
         referencia = a;
     }
     //--------------------------------------
 
-    public String [] obtenerNombreBarrio() {
+    public ArrayList<String> obtenerNombreBarrio() {
         return nombreBarrio;
     }
 
-    public String [] obtenerReferencia() {
+    public ArrayList<String> obtenerReferencia() {
         return referencia;
     }
 
     @Override
     public String toString() {
         String cadena = "\t\tLISTA DE BARRIOS\n";
-        for (int i = 0; i < nombreBarrio.length; i++) {
+        for (int i = 0; i < nombreBarrio.size(); i++) {
             cadena = String.format("%s%s; %s\n",cadena
-                                            , obtenerNombreBarrio()[i]
-                                            , obtenerReferencia()[i]);
+                                            , obtenerNombreBarrio().get(i)
+                                            , obtenerReferencia().get(i));
         }
         return cadena;
     }

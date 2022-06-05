@@ -3,25 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package paquete05;
+package paquete03;
 
-import paquete01.*;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import paquete1.Calificacion;
-import paquete1.Profesor;
 
-public class EscrituraArchivoSecuencial {
+
+public class EscrituraBarrio {
 
     private String nombreArchivo;
     private ObjectOutputStream salida; // envía los datos a un archivo
-    private Calificacion registro;
-    private ArrayList<Calificacion> lista;
+    private Barrio registro;
+    private ArrayList<Barrio> lista;
+    private String mensaje;
 
-    public EscrituraArchivoSecuencial(String nombreArc) {
+    public EscrituraBarrio(String nombreArc, Barrio re) {
         nombreArchivo = nombreArc;
+        // mensaje = men;
+        registro = re;
         establecerLista(); // obtener los valores (objetos)
                                     // que tiene el archivo.
         // System.out.println(obtenerListaProfesores().size());
@@ -41,12 +43,16 @@ public class EscrituraArchivoSecuencial {
             System.err.println("Error al abrir el archivo.");
         } // fin de catch
     }
+
+    public void establecerMensaje(String a) {
+        mensaje = a;
+    }
     
     public void establecerNombreArchivo(String n){
         nombreArchivo = n;
     }
     // agrega registros al archivo
-    public void establecerRegistro(Calificacion p) {
+    public void establecerRegistro(Barrio p) {
         registro = p;
     }
 
@@ -61,16 +67,20 @@ public class EscrituraArchivoSecuencial {
     // en el atributo listaProfesores obtenemos los registros 
     // del archivo
     public void establecerLista() {
-        LecturaArchivoSecuencial l = new LecturaArchivoSecuencial(obtenerNombreArchivo());
-        l.establecerListaCalificaciones();
-        lista = l.obtenerListaCalificaciones();
+        LecturaBarrio l = new LecturaBarrio(obtenerNombreArchivo());
+        l.establecerListaBarrio();
+        lista = l.obtenerListaBarrio();
     }
 
     public String obtenerNombreArchivo(){
         return nombreArchivo;
     }
+
+    public String obtenerMensaje() {
+        return mensaje;
+    }
     
-    public ArrayList<Calificacion> obtenerLista() {
+    public ArrayList<Barrio> obtenerLista() {
         return lista;
     }
 

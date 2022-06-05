@@ -3,26 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package paquete02;
+package paquete05;
 
-import paquete01.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 
-public class Escritura {
+public class EscrituraConstructora {
 
     private String nombreArchivo;
     private ObjectOutputStream salida; // envía los datos a un archivo
-    private Propietario registro;
-    private ArrayList<Propietario> lista;
+    private Constructora registro;
+    private ArrayList<Constructora> lista;
     private String mensaje;
 
-    public Escritura(String nombreArc, String men) {
+    public EscrituraConstructora(String nombreArc, Constructora re) {
         nombreArchivo = nombreArc;
-        mensaje = men;
+        // mensaje = men;
+        registro = re;
         establecerLista(); // obtener los valores (objetos)
                                     // que tiene el archivo.
         // System.out.println(obtenerListaProfesores().size());
@@ -51,13 +51,13 @@ public class Escritura {
         nombreArchivo = n;
     }
     // agrega registros al archivo
-    public void establecerRegistro(Propietario p) {
+    public void establecerRegistro(Constructora p) {
         registro = p;
     }
 
     public void establecerSalida() {
         try {
-            salida.writeObject(mensaje); // envía el registro como salida
+            salida.writeObject(registro); // envía el registro como salida
         } catch (IOException ex) {
             System.err.println("Error al escribir en el archivo.");
         }
@@ -66,9 +66,9 @@ public class Escritura {
     // en el atributo listaProfesores obtenemos los registros 
     // del archivo
     public void establecerLista() {
-        LecturaArchivoSecuencial l = new LecturaArchivoSecuencial(obtenerNombreArchivo());
-        l.establecerListaPropietarioes();
-        lista = l.obtenerListaPropietario();
+        LecturaConstructora l = new LecturaConstructora(obtenerNombreArchivo());
+        l.establecerListaConstructora();
+        lista = l.obtenerListaConstructora();
     }
 
     public String obtenerNombreArchivo(){
@@ -79,7 +79,7 @@ public class Escritura {
         return mensaje;
     }
     
-    public ArrayList<Propietario> obtenerLista() {
+    public ArrayList<Constructora> obtenerLista() {
         return lista;
     }
 

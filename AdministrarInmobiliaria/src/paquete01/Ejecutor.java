@@ -1,24 +1,24 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package paquete01;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import paquete02.*;
 import paquete03.*;
 import paquete04.*;
 import paquete05.*;
+import paquete06.*;
 
 /**
  *
- * @author reroes
+ * @author ronni
  */
-public class Ejecutor {
-
+class Ejecutor {
     public static void main(String[] args) {
-        Scanner a = new Scanner(System.in);
+                Scanner a = new Scanner(System.in);
         String mensaje;
         String option;
         System.out.println("\t\tVamos a registrar datos inmobiliarios");
@@ -56,6 +56,8 @@ public class Ejecutor {
                 System.out.println(mensaje);
                 break;
 
+            default:
+                System.out.println("Ingrese un valor Correcto por favor...");
         }
     }
 
@@ -69,7 +71,7 @@ public class Ejecutor {
         String[] apellido;
         String[] id;
         int respuesta;
-
+        System.out.println("\t\tINFORMACIÓN PROPIETARIOS");
         System.out.println("¿De cuántos Propietarios desea Ingresar información?");
         respuesta = a.nextInt();
         a.nextLine();
@@ -86,53 +88,77 @@ public class Ejecutor {
             apellido[i] = a.nextLine();
             System.out.println("Ingresar identificación del Propietario:");
             id[i] = a.nextLine();
-            System.out.println("---------------------------------------------");
         }
         p = new Propietario(nombre, apellido, id);
-
         cadena = String.format("%s", p);
-        Escritura e = new Escritura(name, cadena);
+
+        EscrituraPropietario e = new EscrituraPropietario(name, cadena, p);
+        e.establecerSalida();
+        e.cerrarArchivo();
+
+        LecturaPropietario l = new LecturaPropietario(name);
+        l.establecerListaPropietario();
+        // System.out.println(l);
+        cadena = String.format("%s", l);
+        // cadena = String.format("%s\n\t\tLectura del Archivo: %s:", p,l);
 
         return cadena;
     }
 
     public static String barrios() {
         Scanner a = new Scanner(System.in);
+        String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
+                + "\\POO\\trab-final-1bim-grupo02\\ArchivosInmobiliaria\\"
+                + "barrios.dat";
         String cadena;
-        String[] barrio;
-        String[] referencia;
+        ArrayList<String> barrio;
+        ArrayList<String> referencia;
         int respuesta;
-
-        System.out.println("¿De cuántos Propietarios desea Ingresar información?");
+        System.out.println("\t\tINFORMACIÓN BARRIOS");
+        System.out.println("¿De cuántos Barrios desea Ingresar información?");
 
         respuesta = a.nextInt();
         a.nextLine();
 
-        barrio = new String[respuesta];
-        referencia = new String[respuesta];
+        barrio = new ArrayList<>();
+        referencia = new ArrayList<>();
 
         Barrio b;
         for (int i = 0; i < respuesta; i++) {
             System.out.println("---------------------------------------------");
-            System.out.printf("Ingresar el nombre del barrio %d:", i + 1);
-            barrio[i] = a.nextLine();
-            System.out.printf("Ingresar referencia del barrio %d:", i + 1);
-            referencia[i] = a.nextLine();
+            System.out.printf("Ingresar el nombre del barrio %d: ", i + 1);
+            barrio.add(a.nextLine());
+            System.out.printf("Ingresar referencia del barrio %d: ", i + 1);
+            referencia.add(a.nextLine());
 
         }
         b = new Barrio(barrio, referencia);
         cadena = String.format("%s", b);
+
+        EscrituraBarrio e = new EscrituraBarrio(name, b);
+        e.establecerSalida();
+        e.cerrarArchivo();
+
+        LecturaBarrio l = new LecturaBarrio(name);
+        l.establecerListaBarrio();
+        // System.out.println(l);
+        cadena = String.format("%s", l);
+        // cadena = String.format("%s\n\t\tLectura del Archivo: %s:", p,l);
+
         return cadena;
     }
 
     public static String ciudad() {
         Scanner a = new Scanner(System.in);
+        String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
+                + "\\POO\\trab-final-1bim-grupo02\\ArchivosInmobiliaria\\"
+                + "ciudad.dat";
         String cadena;
         String[] ciudad;
         String[] provincia;
         int respuesta;
-
-        System.out.println("¿De cuántos Propietarios desea Ingresar información?");
+        System.out.println("\t\tINFORMACIÓN CIUDADES");
+        System.out.println("¿De cuantas Ciudades desea Ingresar información?");
         respuesta = a.nextInt();
         a.nextLine();
         ciudad = new String[respuesta];
@@ -141,25 +167,38 @@ public class Ejecutor {
         Ciudad c;
         for (int i = 0; i < respuesta; i++) {
             System.out.println("---------------------------------------------");
-            System.out.printf("Ingresar el nombre de la Ciudad %d:", i + 1);
+            System.out.printf("Ingresar el nombre de la Ciudad %d: ", i + 1);
             ciudad[i] = a.nextLine();
-            System.out.printf("Ingresar el nombre de la Provincia %d:", i + 1);
+            System.out.printf("Ingresar el nombre de la Provincia %d: ", i + 1);
             provincia[i] = a.nextLine();
 
         }
         c = new Ciudad(ciudad, provincia);
         cadena = String.format("%s", c);
+
+        EscrituraCiudad e = new EscrituraCiudad(name, c);
+        e.establecerSalida();
+        e.cerrarArchivo();
+
+        LecturaCiudad l = new LecturaCiudad(name);
+        l.establecerListaCiudad();
+        // System.out.println(l);
+        cadena = String.format("%s", l);
+        // cadena = String.format("%s\n\t\tLectura del Archivo: %s:", p,l);
         return cadena;
     }
 
     public static String constructora() {
         Scanner a = new Scanner(System.in);
+        String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
+                + "\\POO\\trab-final-1bim-grupo02\\ArchivosInmobiliaria\\"
+                + "constructora.dat";
         String cadena;
         String[] nombreConstructora;
         String[] id;
         int respuesta;
-
-        System.out.println("¿De cuántos Propietarios desea Ingresar información?");
+        System.out.println("\t\tINFORMACIÓN CONSTRUCTORA");
+        System.out.println("¿De cuántas Constructora/as desea Ingresar información?");
         respuesta = a.nextInt();
         a.nextLine();
 
@@ -169,20 +208,49 @@ public class Ejecutor {
         Constructora c;
         for (int i = 0; i < respuesta; i++) {
             System.out.println("---------------------------------------------");
-            System.out.printf("Ingresar el nombre de la Ciudad %d:", i + 1);
+            System.out.printf("Ingresar el nombre de la Constructora %d: ", i + 1);
             nombreConstructora[i] = a.nextLine();
-            System.out.printf("Ingresar la ID de la empresa %s: ",
-                     nombreConstructora[i]);
+            System.out.printf("Ingresar la ID de la empresa %s: ", nombreConstructora[i]);
             id[i] = a.nextLine();
 
         }
         c = new Constructora(nombreConstructora, id);
         cadena = String.format("%s", c);
+
+        EscrituraConstructora e = new EscrituraConstructora(name, c);
+        e.establecerSalida();
+        e.cerrarArchivo();
+
+        LecturaConstructora l = new LecturaConstructora(name);
+        l.establecerListaConstructora();
+        // System.out.println(l);
+        cadena = String.format("%s", l);
+        // cadena = String.format("%s\n\t\tLectura del Archivo: %s:", p,l);
         return cadena;
     }
 
     public static String casa() {
         Scanner a = new Scanner(System.in);
+        System.out.println("\nCASA");
+                            System.out.println("--------------");
+                            System.out.print("Ingrese la identificacion del Propietario: ");
+                            a.nextLine();
+                            String buscarCasa = a.nextLine();
+                            System.out.print("Ingresar nombre Barrio: ");
+                            String buscarBarrio = a.nextLine();
+                            System.out.print("Ingresar nombre Ciudad: ");
+                            String buscarCiudad = a.nextLine();
+                            System.out.print("Ingrese el ID de la Empresa: ");
+                            String buscarEmpresa = a.nextLine();
+                            System.out.print("Cotización de los m2: ");
+                            double precioMetro = a.nextDouble();
+                            System.out.print("Numero de Metros de la Casa: ");
+                            double numMetro = a.nextDouble();
+                            System.out.print("Numero de Cuartos de la Casa: ");
+                            int numCuartos = a.nextInt();
+                            
+                            Casa c = new Casa(precioMetro, numMetro, numCuartos);
+                            c.establecerCostoFinal();
         String cadena = "";
 
         return cadena;
@@ -194,4 +262,5 @@ public class Ejecutor {
 
         return cadena;
     }
-}
+    }
+

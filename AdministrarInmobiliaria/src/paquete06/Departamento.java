@@ -5,6 +5,7 @@
  */
 package paquete06;
 
+import java.io.Serializable;
 import paquete02.Propietario;
 import paquete03.Barrio;
 import paquete04.Ciudad;
@@ -14,122 +15,101 @@ import paquete05.Constructora;
  *
  * @author reroes
  */
-public class Departamento {
-
-    double precioMetro;
-    double numMetros;
-    double valorMensual;
-    double costoTotal;
-    int numCuartos;
-    String nombreDepa;
-    String ubi;
-
-    Barrio barrio;
-    Ciudad ciudad;
-    Propietario prop;
-    Constructora constructora;
-
-    public Departamento(String a, String b, double c, double d, double e,
-             double f, int g) {
-        nombreDepa = a;
-        ubi = b;
-        precioMetro = c;
-        numMetros = d;
-        valorMensual = e;
-        costoTotal = f;
-        numCuartos = g;
-        
+public class Departamento implements Serializable{
+    private Propietario propietario;
+    private double PrecioMetro;
+    private double numeroMetros;
+    private double alicuotaMensual;
+    private double costoFinal;
+    private Barrio barrio;
+    private Ciudad ciudad;
+    private String nombreEdificio;
+    private String ubicacionDepartamento;
+    private Constructora constructora;
+    
+    public Departamento (double pm, double nMetros,
+             String nombre, String ubi ) {
+        PrecioMetro = pm;
+        numeroMetros = nMetros;
+        nombreEdificio = nombre;
+        ubicacionDepartamento = ubi;
     }
-
-    public void establecerPrecioMetro(double a) {
-        precioMetro = a;
+    
+    public void establecerPropietario(Propietario n) {
+        propietario = n;
     }
-
-    public void establecerNumMetros(double a) {
-        numMetros = a;
+    
+    public void establecerPrecioMetro(double n) {
+        PrecioMetro = n;
     }
-
-    public void establecerValorMensual(double a) {
-        valorMensual = a;
+    
+    public void establecerNumeroMetro(double n) {
+        numeroMetros = n;
     }
-
-    public void establecerCostoTotal(double a) {
-        costoTotal = a;
+    public void establecerAlicuotaMensual() {
+        alicuotaMensual = 0.18;
     }
-
-    public void establecerNumCuartos(int a) {
-        numCuartos = a;
+    
+    public void establecerCostoFinal() {
+        costoFinal = (numeroMetros * PrecioMetro) + (alicuotaMensual * 12);
     }
-
-    public void establecerNombreDepa(String a) {
-        nombreDepa = a;
+    
+    public void establecerBarrio(Barrio n) {
+        barrio = n;
     }
-
-    public void establecerUbi(String a) {
-        ubi = a;
+    
+    public void establecerCiudad(Ciudad n) {
+        ciudad = n;
     }
-
-    public void establecerBarrio(Barrio a) {
-        barrio = a;
+    
+    public void establecerNombreEdificio(String n) {
+        nombreEdificio = n;
     }
-
-    public void establecerCiudad(Ciudad a) {
-        ciudad = a;
+    public void establecerUbicacionEdificio(String n) {
+        ubicacionDepartamento = n;
     }
-
-    public void establecerProp(Propietario a) {
-        prop = a;
+    
+    public void establecerConstructora(Constructora n) {
+        constructora = n;
     }
-
-    public void establecerConstructora(Constructora a) {
-        constructora = a;
+    
+    public Propietario obtenerPropietario() {
+        return propietario;
     }
-
+    
     public double obtenerPrecioMetro() {
-        return precioMetro;
+        return PrecioMetro; 
     }
-
-    public double obtenerNumMetros() {
-        return numMetros;
+    
+    public double obtenerNumeroMetros() {
+        return numeroMetros;
     }
-
-    public double obtenerValorMensual() {
-        return valorMensual;
+    
+    public double obtenerAlicuotaMensual() {
+        return alicuotaMensual;
     }
-
-    public double obtenerCostoTotal() {
-        return costoTotal;
+    
+    public double obtenerCostoFinal() {
+        return costoFinal;
     }
-
-    public int obtenerNumCuartos() {
-        return numCuartos;
-    }
-
-    public String obtenerNombreDepa() {
-        return nombreDepa;
-    }
-
-    public String obtenerUbi() {
-        return ubi;
-    }
-
+    
     public Barrio obtenerBarrio() {
         return barrio;
     }
-
+    
     public Ciudad obtenerCiudad() {
         return ciudad;
     }
-
-    public Propietario obtenerProp() {
-        return prop;
+    
+    public String obtenerNombreEdificio() {
+        return nombreEdificio;
     }
-
+    
+    public String obtenerUbicacionEdificio() {
+        return ubicacionDepartamento;
+    }
+    
     public Constructora obtenerConstructora() {
         return constructora;
-    }
-
-    
-    
-    
+    }  
 }

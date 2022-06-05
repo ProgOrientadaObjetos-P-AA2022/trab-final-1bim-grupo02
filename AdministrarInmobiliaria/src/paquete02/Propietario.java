@@ -16,11 +16,15 @@ public class Propietario implements Serializable{
     private String[] nombre;
     private String[] apellido;
     private String[] identificacion;
+    private String identificador;
+    private Propietario propBuscar;
 
-    public Propietario(String[] a, String[] b, String[] c) {
+    public Propietario(String[] a, String[] b, String[] c, String d, Propietario e) {
         nombre = a;
         apellido = b;
         identificacion = c;
+        identificador = d;
+        propBuscar = e;
     }
 
     public void establecerNombre(String[] a) {

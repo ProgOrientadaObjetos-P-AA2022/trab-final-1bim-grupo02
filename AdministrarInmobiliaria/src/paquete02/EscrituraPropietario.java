@@ -3,24 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package paquete03;
+package paquete02;
 
-import paquete01.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 
-public class EscrituraArchivoSecuencial {
+public class EscrituraPropietario {
 
     private String nombreArchivo;
     private ObjectOutputStream salida; // envía los datos a un archivo
-    private Barrio registro;
-    private ArrayList<Barrio> lista;
+    private Propietario registro;
+    private ArrayList<Propietario> lista;
+    private String mensaje;
 
-    public EscrituraArchivoSecuencial(String nombreArc) {
+    public EscrituraPropietario(String nombreArc, String men, Propietario re) {
         nombreArchivo = nombreArc;
+        mensaje = men;
+        registro = re;
         establecerLista(); // obtener los valores (objetos)
                                     // que tiene el archivo.
         // System.out.println(obtenerListaProfesores().size());
@@ -40,12 +42,16 @@ public class EscrituraArchivoSecuencial {
             System.err.println("Error al abrir el archivo.");
         } // fin de catch
     }
+
+    public void establecerMensaje(String a) {
+        mensaje = a;
+    }
     
     public void establecerNombreArchivo(String n){
         nombreArchivo = n;
     }
     // agrega registros al archivo
-    public void establecerRegistro(Barrio p) {
+    public void establecerRegistro(Propietario p) {
         registro = p;
     }
 
@@ -60,16 +66,20 @@ public class EscrituraArchivoSecuencial {
     // en el atributo listaProfesores obtenemos los registros 
     // del archivo
     public void establecerLista() {
-        LecturaArchivoSecuencial l = new LecturaArchivoSecuencial(obtenerNombreArchivo());
-        l.establecerListaBarrio();
-        lista = l.obtenerListaBarrio();
+        LecturaPropietario l = new LecturaPropietario(obtenerNombreArchivo());
+        l.establecerListaPropietario();
+        lista = l.obtenerListaPropietario();
     }
 
     public String obtenerNombreArchivo(){
         return nombreArchivo;
     }
+
+    public String obtenerMensaje() {
+        return mensaje;
+    }
     
-    public ArrayList<Barrio> obtenerLista() {
+    public ArrayList<Propietario> obtenerLista() {
         return lista;
     }
 

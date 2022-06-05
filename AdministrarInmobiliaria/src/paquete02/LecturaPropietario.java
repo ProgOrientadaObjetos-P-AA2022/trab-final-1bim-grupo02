@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package paquete03;
+package paquete02;
 
-import paquete01.*;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,18 +13,17 @@ import java.io.ObjectInputStream;
 
 import java.util.ArrayList;
 
-
 /**
  *
  * @author reroes
  */
-public class LecturaArchivoSecuencial {
+public class LecturaPropietario {
 
     private ObjectInputStream entrada;
-    private ArrayList<Barrio> calificaciones;
+    private ArrayList<Propietario> propietario;
     private String nombreArchivo;
 
-    public LecturaArchivoSecuencial(String n) {
+    public LecturaPropietario(String n) {
         nombreArchivo = n;
         File f = new File(obtenerNombreArchivo());
         if (f.exists()) {
@@ -45,16 +43,16 @@ public class LecturaArchivoSecuencial {
         nombreArchivo = n;
     }
 
-    public void establecerListaBarrio() {
+    public void establecerListaPropietario() {
         // 
-        calificaciones = new ArrayList<>();
+        propietario = new ArrayList<>();
         File f = new File(obtenerNombreArchivo());
         if (f.exists()) {
 
             while (true) {
                 try {
-                    Barrio registro = (Barrio) entrada.readObject();
-                    calificaciones.add(registro);
+                    Propietario registro = (Propietario) entrada.readObject();
+                    propietario.add(registro);
                 } catch (EOFException endOfFileException) {
                     return; // se llegó al fin del archivo
 
@@ -71,8 +69,8 @@ public class LecturaArchivoSecuencial {
 
     }
 
-    public ArrayList<Barrio> obtenerListaBarrio() {
-        return calificaciones;
+    public ArrayList<Propietario> obtenerListaPropietario() {
+        return propietario;
     }
 
     public String obtenerNombreArchivo() {
@@ -81,16 +79,14 @@ public class LecturaArchivoSecuencial {
 
     @Override
     public String toString() {
-        String cadena = "Lista de Barrioes\n";
-        for (int i = 0; i < obtenerListaBarrio().size(); i++) {
-            Barrio p = obtenerListaBarrio().get(i);
-            cadena = String.format("%s%s-%.2f-(%s-%s)\n", cadena,
-                    p.obtenerNombreMateria(),
-                    p.obtenerNota(),
-                    p.obtenerProfesor().obtenerNombre(),
-                    p.obtenerProfesor().obtenerTipo());
+        String cadena = "\t\tLISTA DE PROPIETARIOS\n";
+        for (int i = 0; i < obtenerListaPropietario().size(); i++) {
+            System.out.println(i);
+            cadena = String.format("%s%s; %s; %s\n",cadena
+                    , obtenerListaPropietario().get(i).obtenerNombre()[i]
+                    , obtenerListaPropietario().get(i).obtenerApellido()[i]
+                    , obtenerListaPropietario().get(i).obtenerIdentificacion()[i]);
         }
-
         return cadena;
     }
 

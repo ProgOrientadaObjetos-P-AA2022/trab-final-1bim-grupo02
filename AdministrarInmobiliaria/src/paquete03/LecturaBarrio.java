@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package paquete02;
+package paquete03;
+
 
 import java.io.EOFException;
 import java.io.File;
@@ -17,13 +18,13 @@ import java.util.ArrayList;
  *
  * @author reroes
  */
-public class LecturaArchivoSecuencial {
+public class LecturaBarrio {
 
     private ObjectInputStream entrada;
-    private ArrayList<Propietario> propietario;
+    private ArrayList<Barrio> barrio;
     private String nombreArchivo;
 
-    public LecturaArchivoSecuencial(String n) {
+    public LecturaBarrio(String n) {
         nombreArchivo = n;
         File f = new File(obtenerNombreArchivo());
         if (f.exists()) {
@@ -43,16 +44,16 @@ public class LecturaArchivoSecuencial {
         nombreArchivo = n;
     }
 
-    public void establecerListaPropietarioes() {
+    public void establecerListaBarrio() {
         // 
-        propietario = new ArrayList<>();
+        barrio = new ArrayList<>();
         File f = new File(obtenerNombreArchivo());
         if (f.exists()) {
 
             while (true) {
                 try {
-                    Propietario registro = (Propietario) entrada.readObject();
-                    propietario.add(registro);
+                    Barrio registro = (Barrio) entrada.readObject();
+                    barrio.add(registro);
                 } catch (EOFException endOfFileException) {
                     return; // se llegó al fin del archivo
 
@@ -69,8 +70,8 @@ public class LecturaArchivoSecuencial {
 
     }
 
-    public ArrayList<Propietario> obtenerListaPropietario() {
-        return propietario;
+    public ArrayList<Barrio> obtenerListaBarrio() {
+        return barrio;
     }
 
     public String obtenerNombreArchivo() {
@@ -79,12 +80,11 @@ public class LecturaArchivoSecuencial {
 
     @Override
     public String toString() {
-        String cadena = "\t\tLISTA DE PROPIETARIOS\n";
-        for (int i = 0; i < obtenerListaPropietario().size(); i++) {
-            cadena = String.format("%s%s; %s; %s\n",cadena
-                                            , obtenerListaPropietario().get(i)
-                                            , obtenerListaPropietario().get(i)
-                                            , obtenerListaPropietario().get(i));
+        String cadena = "\t\tLISTA DE BARRIOS\n";
+        for (int i = 0; i < obtenerListaBarrio().size(); i++) {
+            cadena = String.format("%s%s; %s\n",cadena
+                    , obtenerListaBarrio().get(i).obtenerNombreBarrio().get(i)
+                    , obtenerListaBarrio().get(i).obtenerReferencia().get(i));
         }
         return cadena;
     }

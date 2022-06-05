@@ -5,7 +5,7 @@
  */
 package paquete05;
 
-import paquete01.*;
+
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,19 +13,18 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import java.util.ArrayList;
-import paquete1.Calificacion;
 
 /**
  *
  * @author reroes
  */
-public class LecturaArchivoSecuencial {
+public class LecturaConstructora {
 
     private ObjectInputStream entrada;
-    private ArrayList<Calificacion> calificaciones;
+    private ArrayList<Constructora> propietario;
     private String nombreArchivo;
 
-    public LecturaArchivoSecuencial(String n) {
+    public LecturaConstructora(String n) {
         nombreArchivo = n;
         File f = new File(obtenerNombreArchivo());
         if (f.exists()) {
@@ -45,16 +44,16 @@ public class LecturaArchivoSecuencial {
         nombreArchivo = n;
     }
 
-    public void establecerListaCalificaciones() {
+    public void establecerListaConstructora() {
         // 
-        calificaciones = new ArrayList<>();
+        propietario = new ArrayList<>();
         File f = new File(obtenerNombreArchivo());
         if (f.exists()) {
 
             while (true) {
                 try {
-                    Calificacion registro = (Calificacion) entrada.readObject();
-                    calificaciones.add(registro);
+                    Constructora registro = (Constructora) entrada.readObject();
+                    propietario.add(registro);
                 } catch (EOFException endOfFileException) {
                     return; // se llegó al fin del archivo
 
@@ -71,8 +70,8 @@ public class LecturaArchivoSecuencial {
 
     }
 
-    public ArrayList<Calificacion> obtenerListaCalificaciones() {
-        return calificaciones;
+    public ArrayList<Constructora> obtenerListaConstructora() {
+        return propietario;
     }
 
     public String obtenerNombreArchivo() {
@@ -81,16 +80,12 @@ public class LecturaArchivoSecuencial {
 
     @Override
     public String toString() {
-        String cadena = "Lista de Calificaciones\n";
-        for (int i = 0; i < obtenerListaCalificaciones().size(); i++) {
-            Calificacion p = obtenerListaCalificaciones().get(i);
-            cadena = String.format("%s%s-%.2f-(%s-%s)\n", cadena,
-                    p.obtenerNombreMateria(),
-                    p.obtenerNota(),
-                    p.obtenerProfesor().obtenerNombre(),
-                    p.obtenerProfesor().obtenerTipo());
+        String cadena = "\t\tLISTA DE CONSTRUCTORAS\n";
+        for (int i = 0; i < obtenerListaConstructora().size(); i++) {
+            cadena = String.format("%s%s; %s\n",cadena
+                    , obtenerListaConstructora().get(i).obtenerNombreConstructora()[i]
+                    , obtenerListaConstructora().get(i).obtenerIdConstructora()[i]);
         }
-
         return cadena;
     }
 

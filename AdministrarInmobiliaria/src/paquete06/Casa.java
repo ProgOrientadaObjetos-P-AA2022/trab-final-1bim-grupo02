@@ -5,6 +5,7 @@
  */
 package paquete06;
 
+import java.io.Serializable;
 import paquete02.Propietario;
 import paquete03.Barrio;
 import paquete04.Ciudad;
@@ -14,78 +15,95 @@ import paquete05.Constructora;
  *
  * @author reroes
  */
-public class Casa {
+public class Casa implements Serializable{
 
+    private Propietario propietario;
     private double precioMetro;
     private double numMetros;
     private double costoFinal;
-    private int numCuartos;
-
     private Barrio barrio;
     private Ciudad ciudad;
-    private Propietario prop;
+    private int numCuartos;
     private Constructora constructora;
-
-    public Casa(double a, double b, int c) {
-        precioMetro = a;
-        numMetros = b;
-        numCuartos = c;
+    
+    public Casa(Propietario prop, double pm, double numeroMetros, int nCuartos,
+            Barrio ba, Ciudad ciu, Constructora cons){
+       propietario = prop;
+       precioMetro = pm;
+       numMetros = numeroMetros;
+       numCuartos = nCuartos;
+       barrio = ba;
+       ciudad = ciu;
+       constructora = cons;
     }
-
-    public void establecerPrecioMetro(double a) {
-        precioMetro = a;
+    
+    public Casa(double pm, double nMetros, int nCuartos){
+       precioMetro = pm;
+       numMetros = nMetros;
+       numCuartos = nCuartos;
     }
-
-    public void establecerNumeroMetros(double a) {
-        numMetros = a;
+    
+    public void establecerPropietario (Propietario n) {
+        propietario = n;
     }
-
+    
+    public void establecerPrecioMetroCuadrado(double n) {
+        precioMetro = n;
+    }
+    
+    public void establecerNumeroMetros(double n) {
+        numMetros = n;
+    } 
+    
     public void establecerCostoFinal() {
-        costoFinal = precioMetro * numMetros;
+        costoFinal = numMetros * precioMetro;
     }
-
-    public void establecerBarrio(Barrio a) {
-        barrio = a;
+    
+    public void establecerBarrio(Barrio n) {
+        barrio = n;
     }
-
-    public void establecerCiudad(Ciudad a) {
-        ciudad = a;
+    
+    public void establecerCiudad(Ciudad n) {
+        ciudad = n;
     }
-
-    public void establecerPropietario(Propietario a) {
-        prop = a;
+    
+    public void establecerNumeroCuartos(int n) {
+        numCuartos = n;
     }
-
-    public void establecerConstructora(Constructora a) {
-        constructora = a;
+    
+    public void establecerConstructora(Constructora n) {
+        constructora = n;
     }
-    // ------------------------------------------------------
-
-    public double establecerPrecioMetro() {
+    
+    public Propietario obtenerPropietario() {
+        return propietario;
+    }
+    
+    public double obtenerPrecioMetroCuadrado() {
         return precioMetro;
     }
-
-    public double establecerNumeroMetros() {
+    
+    public double obtenerNumeroMetros() {
         return numMetros;
     }
-
+    
     public double obtenerCostoFinal() {
         return costoFinal;
     }
-
-    public Barrio establecerBarrio() {
+    
+    public Barrio obtenerBarrio() {
         return barrio;
     }
-
-    public Ciudad establecerCiudad() {
+    
+    public Ciudad obtenerCiudad() {
         return ciudad;
     }
-
-    public Propietario establecerPropietario() {
-        return prop;
+    
+    public int obtenereNumeroCuartos() {
+        return numCuartos;
     }
-
-    public Constructora establecerConstructora() {
+    
+    public Constructora obtenerConstructora() {
         return constructora;
     }
 }
