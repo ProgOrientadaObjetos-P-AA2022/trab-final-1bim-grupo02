@@ -80,11 +80,11 @@ public class LecturaArchivoSecuencial {
     @Override
     public String toString() {
         String cadena = "\t\tLISTA DE PROPIETARIOS\n";
-        for (int i = 0; i < n.length; i++) {
+        for (int i = 0; i < obtenerListaPropietario().size(); i++) {
             cadena = String.format("%s%s; %s; %s\n",cadena
-                                            , obtenerNombre()[i]
-                                            , obtenerApellido()[i]
-                                            , obtenerIdentificacion()[i]);
+                                            , obtenerListaPropietario().get(i)
+                                            , obtenerListaPropietario().get(i)
+                                            , obtenerListaPropietario().get(i));
         }
         return cadena;
     }
