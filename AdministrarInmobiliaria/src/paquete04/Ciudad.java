@@ -10,28 +10,38 @@ package paquete04;
  * @author reroes
  */
 public class Ciudad {
-    private String nombreCiudad;
-    private String nombreProvincia;
+    private String [] nombreCiudad;
+    private String [] nombreProvincia;
 
-    public Ciudad(String a, String b) {
+    public Ciudad(String [] a, String [] b) {
         nombreCiudad = a;
         nombreProvincia = b;
     }
 
-    public void establecernombreCiudad(String a) {
+    public void establecernombreCiudad(String []  a) {
         nombreCiudad = a;
     }
 
-    public void establecerNombreProvincia(String a) {
+    public void establecerNombreProvincia(String [] a) {
         nombreProvincia = a;
     }
-    //--------------------------------------
+    //-----------------------------------------------------------
 
-    public String obtenernombreCiudad() {
+    public String [] obtenerNombreCiudad() {
         return nombreCiudad;
     }
 
-    public String obtenerNombreProvincia() {
+    public String [] obtenerNombreProvincia() {
         return nombreProvincia;
+    }
+    @Override
+    public String toString(){
+        String cadena = "\t\tLISTA DE CIUDADES\n";
+        for (int i = 0; i < nombreCiudad.length; i++) {
+            cadena = String.format("%s%s; %s\n",cadena
+                                            , obtenerNombreCiudad()[i]
+                                            , obtenerNombreProvincia()[i]);
+        }
+    return cadena;
     }
 }

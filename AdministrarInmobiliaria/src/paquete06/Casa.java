@@ -16,19 +16,20 @@ import paquete05.Constructora;
  */
 public class Casa {
 
-    double precioMetro;
-    double numMetros;
-    double costoFinal;
-    int numCuartos;
+    private double precioMetro;
+    private double numMetros;
+    private double costoFinal;
+    private int numCuartos;
 
-    Barrio barrio;
-    Ciudad ciudad;
-    Propietario prop;
-    Constructora constructora;
+    private Barrio barrio;
+    private Ciudad ciudad;
+    private Propietario prop;
+    private Constructora constructora;
 
-    public Casa(double a, double b) {
+    public Casa(double a, double b, int c) {
         precioMetro = a;
         numMetros = b;
+        numCuartos = c;
     }
 
     public void establecerPrecioMetro(double a) {

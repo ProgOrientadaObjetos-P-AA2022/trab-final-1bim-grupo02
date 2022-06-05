@@ -5,44 +5,58 @@
  */
 package paquete02;
 
+import java.io.Serializable;
+
 /**
  *
  * @author reroes
  */
-public class Propietario {
+public class Propietario implements Serializable{
 
-    private String nombre;
-    private String apellido;
-    private String identificacion;
+    private String[] nombre;
+    private String[] apellido;
+    private String[] identificacion;
 
-    public Propietario(String a, String b, String c) {
+    public Propietario(String[] a, String[] b, String[] c) {
         nombre = a;
         apellido = b;
         identificacion = c;
     }
 
-    public void establecerNombre(String a) {
+    public void establecerNombre(String[] a) {
         nombre = a;
     }
 
-    public void establecerApellido(String b) {
+    public void establecerApellido(String[] b) {
         apellido = b;
     }
 
-    public void establecerIdentificacion(String c) {
+    public void establecerIdentificacion(String[] c) {
         identificacion = c;
     }
 
     // ------------------------------------
-    public String obtenerNombre() {
+    public String[] obtenerNombre() {
         return nombre;
     }
 
-    public String obtenerApellido() {
+    public String[] obtenerApellido() {
         return apellido;
     }
 
-    public String obtenerIdentificacion() {
+    public String[] obtenerIdentificacion() {
         return identificacion;
+    }
+
+    @Override
+    public String toString() {
+        String cadena = "\t\tLISTA DE PROPIETARIOS\n";
+        for (int i = 0; i < nombre.length; i++) {
+            cadena = String.format("%s%s; %s; %s\n",cadena
+                                            , obtenerNombre()[i]
+                                            , obtenerApellido()[i]
+                                            , obtenerIdentificacion()[i]);
+        }
+        return cadena;
     }
 }

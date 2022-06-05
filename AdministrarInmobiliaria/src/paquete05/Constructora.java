@@ -11,29 +11,39 @@ package paquete05;
  */
 public class Constructora {
 
-    private String nombreConstructora;
-    private String idEmpresa;
+    private String [] nombreConstructora;
+    private String [] idEmpresa;
 
-    public Constructora(String a, String b) {
+    public Constructora(String [] a, String [] b) {
         nombreConstructora = a;
         idEmpresa = b;
     }
 
-    public void establecernombreCiudad(String a) {
+    public void establecerNombreConstructora(String [] a) {
         nombreConstructora = a;
     }
 
-    public void establecerNombreProvincia(String a) {
+    public void establecerIdConstructora(String [] a) {
         idEmpresa = a;
     }
     //--------------------------------------
 
-    public String obtenernombreCiudad() {
+    public String [] obtenerNombreConstructora() {
         return nombreConstructora;
     }
 
-    public String obtenerNombreProvincia() {
+    public String [] obtenerIdConstructora() {
         return idEmpresa;
+    }
+    @Override
+    public String toString(){
+        String cadena = "\t\tLISTA DE BARRIOS\n";
+        for (int i = 0; i < nombreConstructora.length; i++) {
+            cadena = String.format("%s%s; %s\n",cadena
+                                            , obtenerNombreConstructora()[i]
+                                            , obtenerIdConstructora()[i]);
+        }
+        return cadena;
     }
 
 }

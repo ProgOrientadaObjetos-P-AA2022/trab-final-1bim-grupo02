@@ -38,6 +38,98 @@ public class Departamento {
         valorMensual = e;
         costoTotal = f;
         numCuartos = g;
-
+        
     }
+
+    public void establecerPrecioMetro(double a) {
+        precioMetro = a;
+    }
+
+    public void establecerNumMetros(double a) {
+        numMetros = a;
+    }
+
+    public void establecerValorMensual(double a) {
+        valorMensual = a;
+    }
+
+    public void establecerCostoTotal(double a) {
+        costoTotal = a;
+    }
+
+    public void establecerNumCuartos(int a) {
+        numCuartos = a;
+    }
+
+    public void establecerNombreDepa(String a) {
+        nombreDepa = a;
+    }
+
+    public void establecerUbi(String a) {
+        ubi = a;
+    }
+
+    public void establecerBarrio(Barrio a) {
+        barrio = a;
+    }
+
+    public void establecerCiudad(Ciudad a) {
+        ciudad = a;
+    }
+
+    public void establecerProp(Propietario a) {
+        prop = a;
+    }
+
+    public void establecerConstructora(Constructora a) {
+        constructora = a;
+    }
+
+    public double obtenerPrecioMetro() {
+        return precioMetro;
+    }
+
+    public double obtenerNumMetros() {
+        return numMetros;
+    }
+
+    public double obtenerValorMensual() {
+        return valorMensual;
+    }
+
+    public double obtenerCostoTotal() {
+        return costoTotal;
+    }
+
+    public int obtenerNumCuartos() {
+        return numCuartos;
+    }
+
+    public String obtenerNombreDepa() {
+        return nombreDepa;
+    }
+
+    public String obtenerUbi() {
+        return ubi;
+    }
+
+    public Barrio obtenerBarrio() {
+        return barrio;
+    }
+
+    public Ciudad obtenerCiudad() {
+        return ciudad;
+    }
+
+    public Propietario obtenerProp() {
+        return prop;
+    }
+
+    public Constructora obtenerConstructora() {
+        return constructora;
+    }
+
+    
+    
+    
 }
