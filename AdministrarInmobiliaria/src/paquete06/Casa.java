@@ -99,11 +99,28 @@ public class Casa implements Serializable{
         return ciudad;
     }
     
-    public int obtenereNumeroCuartos() {
+    public int obtenerNumeroCuartos() {
         return numCuartos;
     }
     
     public Constructora obtenerConstructora() {
         return constructora;
     }
+
+    @Override
+    public String toString() {
+        String cadena = "\n\t\tINFORMACIÓN CASA";
+        cadena = String.format("%s\nPrecio del Metro Cuadrado: %.2f\n"
+                + "Número de metros Cuadrados: %.2f\n"
+                + "Costo Final de la casa: %.2f\n"
+                + "Número de Cuartos: %d",cadena
+                ,obtenerPrecioMetroCuadrado()
+                ,obtenerNumeroMetros()
+                , obtenerCostoFinal()
+                , obtenerNumeroCuartos());
+        cadena = String.format("%s\n----------------------------------------"
+                + "----------------\n",cadena);
+        return cadena;
+    }
+    
 }

@@ -23,6 +23,7 @@ class Ejecutor {
         String mensaje;
         String datosVivienda;
         String option;
+
         System.out.println("\t\tVamos a registrar datos inmobiliarios");
         System.out.println("Ingrese un número para registrar datos:\n"
                 + "[1]Información de Propietario\n"
@@ -47,14 +48,6 @@ class Ejecutor {
                 break;
             case "4":
                 mensaje = constructora();
-                System.out.println(mensaje);
-                break;
-            case "5":
-                mensaje = casa();
-                System.out.println(mensaje);
-                break;
-            case "6":
-                mensaje = departamento();
                 System.out.println(mensaje);
                 break;
 
@@ -111,6 +104,7 @@ class Ejecutor {
         cadena = String.format("%s", p);
 
         EscrituraPropietario e = new EscrituraPropietario(name, cadena, p);
+
         e.establecerSalida();
         e.cerrarArchivo();
 
@@ -249,6 +243,9 @@ class Ejecutor {
 
     public static String casa() {
         Scanner a = new Scanner(System.in);
+                String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
+                + "\\POO\\trab-final-1bim-grupo02\\ArchivosInmobiliaria\\"
+                + "casa.dat";
         System.out.println("\t\t INFORMACIÓN CASA");
         System.out.println("--------------");
         System.out.print("Ingrese la identificación del Propietario: ");
@@ -275,8 +272,11 @@ class Ejecutor {
 
     public static String departamento() {
         Scanner a = new Scanner(System.in);
+                        String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
+                + "\\POO\\trab-final-1bim-grupo02\\ArchivosInmobiliaria\\"
+                + "departamento.dat";
         System.out.println("\t\tINFORMACIÓN DEPARTAMENTO");
-        
+
         System.out.print("Ingrese la identificacion del Propietario: ");
         String buscarPropietario = a.nextLine();
         String mensaje1 = comprobarPropietario(buscarPropietario);
@@ -284,7 +284,7 @@ class Ejecutor {
         System.out.print("Ingrese el Nombre del Barrio: ");
         String buscarBarrio = a.nextLine();
         String mensaje2 = comprobarBarrio(buscarBarrio);
-        
+
         System.out.print("Ingrese el Nombre de la Ciudad: ");
         String buscarCiudad = a.nextLine();
         String mensaje3 = comprobarCiudad(buscarCiudad);
@@ -307,8 +307,15 @@ class Ejecutor {
 
         Departamento dep = new Departamento(valorMetro, numMetro, nombreEdificio, ubi);
         dep.establecerCostoFinal();
-        String cadena = String.format("%s - %s - %s - %s", mensaje1, mensaje2
-                                                       , mensaje3, mensaje4);
+        String cadena = String.format("%s\n%s - %s - %s - %s", dep,
+                 mensaje1,
+                 mensaje2,
+                 mensaje3,
+                 mensaje4);
+        
+        EscrituraDepartamento e = new EscrituraDepartamento(name, dep);
+        e.establecerSalida();
+        e.cerrarArchivo();
 
         return cadena;
     }
@@ -335,7 +342,8 @@ class Ejecutor {
 
         return cadena;
     }
-        public static String comprobarBarrio(String a) {
+
+    public static String comprobarBarrio(String a) {
         String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
                 + "\\POO\\trab-final-1bim-grupo02\\ArchivosInmobiliaria\\"
                 + "barrio.dat";
@@ -358,7 +366,8 @@ class Ejecutor {
 
         return cadena;
     }
-            public static String comprobarCiudad(String a) {
+
+    public static String comprobarCiudad(String a) {
         String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
                 + "\\POO\\trab-final-1bim-grupo02\\ArchivosInmobiliaria\\"
                 + "ciudad.dat";
@@ -382,7 +391,8 @@ class Ejecutor {
 
         return cadena;
     }
-                public static String comprobarConstructora(String a) {
+
+    public static String comprobarConstructora(String a) {
         String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
                 + "\\POO\\trab-final-1bim-grupo02\\ArchivosInmobiliaria\\"
                 + "constructora.dat";
@@ -401,6 +411,7 @@ class Ejecutor {
         } catch (Exception e) {
             cadena = ("Constructora no encontrada.\n");
         }
+        
 
         return cadena;
     }
