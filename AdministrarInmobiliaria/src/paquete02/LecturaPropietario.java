@@ -22,6 +22,8 @@ public class LecturaPropietario {
     private ObjectInputStream entrada;
     private ArrayList<Propietario> propietario;
     private String nombreArchivo;
+    private String identificador;
+    private Propietario PropietarioBuscado;
 
     public LecturaPropietario(String n) {
         nombreArchivo = n;
@@ -56,17 +58,49 @@ public class LecturaPropietario {
                 } catch (EOFException endOfFileException) {
                     return; // se llegó al fin del archivo
 
-                } catch (IOException ex) {
-                    System.err.println("Error al leer el archivo: " + ex);
-                } catch (ClassNotFoundException ex) {
-                    System.err.println("No se pudo crear el objeto: " + ex);
-                } catch (Exception ex) {
-                    // System.err.println("No hay datos en el archivo: " + ex);
+                } catch (IOException e) {
+                    System.err.println("Error al leer el archivo: " + e);
+                } catch (ClassNotFoundException e) {
+                    System.err.println("No se pudo crear el objeto: " + e);
+                } catch (Exception e) {
+                    System.err.println("No hay datos en el archivo: " + e);
                     break;
                 }
             }
         }
 
+    }
+
+    public void establecerIdentificador(String a) {
+        identificador = a;
+    }
+
+    public void establecerPropietarioBuscado() {
+        File f = new File(obtenerNombreArchivo());
+        if (f.exists()) {
+
+            while (true) {
+                try {
+                    Propietario registro = (Propietario) entrada.readObject();
+
+                    if (registro.obtenerIdentificacion().equals(identificador)) {
+                        PropietarioBuscado = registro;
+                        break;
+                    }
+
+                } catch (EOFException endOfFileException) {
+                    return;
+
+                } catch (IOException ex) {
+                    System.err.println("Error al leer el archivo: " + ex);
+                } catch (ClassNotFoundException ex) {
+                    System.err.println("No se pudo crear el objeto: " + ex);
+                } catch (Exception ex) {
+                    System.err.println("No hay datos en el archivo: " + ex);
+
+                }
+            }
+        }
     }
 
     public ArrayList<Propietario> obtenerListaPropietario() {
@@ -77,15 +111,23 @@ public class LecturaPropietario {
         return nombreArchivo;
     }
 
+    public String obtenerIdentificador() {
+        return identificador;
+    }
+
+    public Propietario obtenerPropietarioBuscado() {
+        return PropietarioBuscado;
+    }
+
     @Override
     public String toString() {
         String cadena = "\t\tLISTA DE PROPIETARIOS\n";
         for (int i = 0; i < obtenerListaPropietario().size(); i++) {
             System.out.println(i);
-            cadena = String.format("%s%s; %s; %s\n",cadena
-                    , obtenerListaPropietario().get(i).obtenerNombre()[i]
-                    , obtenerListaPropietario().get(i).obtenerApellido()[i]
-                    , obtenerListaPropietario().get(i).obtenerIdentificacion()[i]);
+            cadena = String.format("%s%s; %s; %s\n", cadena,
+                    obtenerListaPropietario().get(i).obtenerNombre()[i],
+                    obtenerListaPropietario().get(i).obtenerApellido()[i],
+                    obtenerListaPropietario().get(i).obtenerIdentificacion()[i]);
         }
         return cadena;
     }

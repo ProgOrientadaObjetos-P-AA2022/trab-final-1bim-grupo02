@@ -23,6 +23,8 @@ public class LecturaCiudad {
     private ObjectInputStream entrada;
     private ArrayList<Ciudad> propietario;
     private String nombreArchivo;
+    private String identificador;
+    private Ciudad ciudadBuscar;
 
     public LecturaCiudad(String n) {
         nombreArchivo = n;
@@ -69,6 +71,38 @@ public class LecturaCiudad {
         }
 
     }
+        public void establecerIdentificador(String n) {
+        identificador = n;
+    }
+    
+    public void establecerCiudadBuscar() {
+        
+        File f = new File(obtenerNombreArchivo());
+        if (f.exists()) {
+
+            while (true) {
+                try {
+                    Ciudad registro = (Ciudad) entrada.readObject();
+                    
+                    if(registro.obtenerNombreCiudad().equals(identificador)){
+                        ciudadBuscar = registro;
+                        break;
+                    }
+                    
+                } catch (EOFException endOfFileException) {
+                    return;
+
+                } catch (IOException ex) {
+                    System.err.println("Error al leer el archivo: " + ex);
+                } catch (ClassNotFoundException ex) {
+                    System.err.println("No se pudo crear el objeto: " + ex);
+                } catch (Exception ex) {
+                    System.err.println("No hay datos en el archivo: " + ex);
+
+                }
+            }
+        }
+    }
 
     public ArrayList<Ciudad> obtenerListaCiudad() {
         return propietario;
@@ -77,6 +111,15 @@ public class LecturaCiudad {
     public String obtenerNombreArchivo() {
         return nombreArchivo;
     }
+
+    public String obtenerIdentificador() {
+        return identificador;
+    }
+
+    public Ciudad obtenerCiudadBuscar() {
+        return ciudadBuscar;
+    }
+    
 
     @Override
     public String toString() {

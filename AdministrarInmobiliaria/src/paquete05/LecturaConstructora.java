@@ -23,6 +23,8 @@ public class LecturaConstructora {
     private ObjectInputStream entrada;
     private ArrayList<Constructora> propietario;
     private String nombreArchivo;
+    private String identificador;
+    private Constructora constructoraBuscar;
 
     public LecturaConstructora(String n) {
         nombreArchivo = n;
@@ -69,6 +71,38 @@ public class LecturaConstructora {
         }
 
     }
+        public void establecerIdentificador(String n) {
+        identificador = n;
+    }
+    
+    public void establecerBuscarConstructora() {
+        
+        File f = new File(obtenerNombreArchivo());
+        if (f.exists()) {
+
+            while (true) {
+                try {
+                    Constructora registro = (Constructora) entrada.readObject();
+                    
+                    if(registro.obtenerIdConstructora().equals(identificador)){
+                        constructoraBuscar = registro;
+                        break;
+                    }
+                    
+                } catch (EOFException endOfFileException) {
+                    return;
+
+                } catch (IOException ex) {
+                    System.err.println("Error al leer el archivo: " + ex);
+                } catch (ClassNotFoundException ex) {
+                    System.err.println("No se pudo crear el objeto: " + ex);
+                } catch (Exception ex) {
+                    System.err.println("No hay datos en el archivo: " + ex);
+
+                }
+            }
+        }
+    }
 
     public ArrayList<Constructora> obtenerListaConstructora() {
         return propietario;
@@ -77,6 +111,15 @@ public class LecturaConstructora {
     public String obtenerNombreArchivo() {
         return nombreArchivo;
     }
+
+    public String obtenerIdentificador() {
+        return identificador;
+    }
+
+    public Constructora obtenerBuscarConstructora() {
+        return constructoraBuscar;
+    }
+    
 
     @Override
     public String toString() {

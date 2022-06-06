@@ -5,7 +5,6 @@
  */
 package paquete03;
 
-
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,6 +22,8 @@ public class LecturaBarrio {
     private ObjectInputStream entrada;
     private ArrayList<Barrio> barrio;
     private String nombreArchivo;
+    private String identificador;
+    private Barrio barrioBuscado;
 
     public LecturaBarrio(String n) {
         nombreArchivo = n;
@@ -70,6 +71,39 @@ public class LecturaBarrio {
 
     }
 
+    public void establecerIdentificador(String n) {
+        identificador = n;
+    }
+
+    public void establecerBarrioBuscado() {
+
+        File f = new File(obtenerNombreArchivo());
+        if (f.exists()) {
+
+            while (true) {
+                try {
+                    Barrio registro = (Barrio) entrada.readObject();
+
+                    if (registro.obtenerNombreBarrio().equals(identificador)) {
+                        barrioBuscado = registro;
+                        break;
+                    }
+
+                } catch (EOFException endOfFileException) {
+                    return;
+
+                } catch (IOException ex) {
+                    System.err.println("Error al leer el archivo: " + ex);
+                } catch (ClassNotFoundException ex) {
+                    System.err.println("No se pudo crear el objeto: " + ex);
+                } catch (Exception ex) {
+                    System.err.println("No hay datos en el archivo: " + ex);
+
+                }
+            }
+        }
+    }
+
     public ArrayList<Barrio> obtenerListaBarrio() {
         return barrio;
     }
@@ -78,13 +112,21 @@ public class LecturaBarrio {
         return nombreArchivo;
     }
 
+    public String obtenerIdentificador() {
+        return identificador;
+    }
+
+    public Barrio obtenerPropietarioBuscado() {
+        return barrioBuscado;
+    }
+
     @Override
     public String toString() {
         String cadena = "\t\tLISTA DE BARRIOS\n";
         for (int i = 0; i < obtenerListaBarrio().size(); i++) {
-            cadena = String.format("%s%s; %s\n",cadena
-                    , obtenerListaBarrio().get(i).obtenerNombreBarrio().get(i)
-                    , obtenerListaBarrio().get(i).obtenerReferencia().get(i));
+            cadena = String.format("%s%s; %s\n", cadena,
+                     obtenerListaBarrio().get(i).obtenerNombreBarrio().get(i),
+                     obtenerListaBarrio().get(i).obtenerReferencia().get(i));
         }
         return cadena;
     }

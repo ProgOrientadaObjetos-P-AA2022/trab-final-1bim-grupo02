@@ -17,9 +17,11 @@ import paquete06.*;
  * @author ronni
  */
 class Ejecutor {
+
     public static void main(String[] args) {
-                Scanner a = new Scanner(System.in);
+        Scanner a = new Scanner(System.in);
         String mensaje;
+        String datosVivienda;
         String option;
         System.out.println("\t\tVamos a registrar datos inmobiliarios");
         System.out.println("Ingrese un número para registrar datos:\n"
@@ -59,6 +61,22 @@ class Ejecutor {
             default:
                 System.out.println("Ingrese un valor Correcto por favor...");
         }
+        System.out.println("\t\tDatos Vivienda");
+        System.out.println("Ingrese el número correspondiente para comprobar "
+                + "datos:\n"
+                + "[1]Datos de Casa\n"
+                + "[2]Datos de Departamento");
+        String rta = a.nextLine();
+        switch (rta) {
+            case "1":
+                datosVivienda = casa();
+                System.out.println(datosVivienda);
+                break;
+            case "2":
+                datosVivienda = departamento();
+                System.out.println(datosVivienda);
+        }
+
     }
 
     public static String propietario() {
@@ -231,26 +249,25 @@ class Ejecutor {
 
     public static String casa() {
         Scanner a = new Scanner(System.in);
-        System.out.println("\nCASA");
-                            System.out.println("--------------");
-                            System.out.print("Ingrese la identificacion del Propietario: ");
-                            a.nextLine();
-                            String buscarCasa = a.nextLine();
-                            System.out.print("Ingresar nombre Barrio: ");
-                            String buscarBarrio = a.nextLine();
-                            System.out.print("Ingresar nombre Ciudad: ");
-                            String buscarCiudad = a.nextLine();
-                            System.out.print("Ingrese el ID de la Empresa: ");
-                            String buscarEmpresa = a.nextLine();
-                            System.out.print("Cotización de los m2: ");
-                            double precioMetro = a.nextDouble();
-                            System.out.print("Numero de Metros de la Casa: ");
-                            double numMetro = a.nextDouble();
-                            System.out.print("Numero de Cuartos de la Casa: ");
-                            int numCuartos = a.nextInt();
-                            
-                            Casa c = new Casa(precioMetro, numMetro, numCuartos);
-                            c.establecerCostoFinal();
+        System.out.println("\t\t INFORMACIÓN CASA");
+        System.out.println("--------------");
+        System.out.print("Ingrese la identificación del Propietario: ");
+        String buscarPropietario = a.nextLine();
+        System.out.print("Ingresar nombre Barrio: ");
+        String buscarBarrio = a.nextLine();
+        System.out.print("Ingresar nombre Ciudad: ");
+        String buscarCiudad = a.nextLine();
+        System.out.print("Ingrese el ID de la Empresa: ");
+        String buscarEmpresa = a.nextLine();
+        System.out.print("Cotización de los m2: ");
+        double precioMetro = a.nextDouble();
+        System.out.print("Numero de Metros de la Casa: ");
+        double numMetro = a.nextDouble();
+        System.out.print("Numero de Cuartos de la Casa: ");
+        int numCuartos = a.nextInt();
+
+        Casa c = new Casa(precioMetro, numMetro, numCuartos);
+        c.establecerCostoFinal();
         String cadena = "";
 
         return cadena;
@@ -258,9 +275,133 @@ class Ejecutor {
 
     public static String departamento() {
         Scanner a = new Scanner(System.in);
-        String cadena = "";
+        System.out.println("\t\tINFORMACIÓN DEPARTAMENTO");
+        
+        System.out.print("Ingrese la identificacion del Propietario: ");
+        String buscarPropietario = a.nextLine();
+        String mensaje1 = comprobarPropietario(buscarPropietario);
+
+        System.out.print("Ingrese el Nombre del Barrio: ");
+        String buscarBarrio = a.nextLine();
+        String mensaje2 = comprobarBarrio(buscarBarrio);
+        
+        System.out.print("Ingrese el Nombre de la Ciudad: ");
+        String buscarCiudad = a.nextLine();
+        String mensaje3 = comprobarCiudad(buscarCiudad);
+
+        System.out.print("Ingrese el ID de la Constructora: ");
+        String buscarEmpresa = a.nextLine();
+        String mensaje4 = comprobarConstructora(buscarEmpresa);
+
+        System.out.print("Cotización de los Metro Cuadrados del Departamento: ");
+        double valorMetro = a.nextDouble();
+        System.out.print("Numero de Metros del Departamento: ");
+
+        double numMetro = a.nextDouble();
+        a.nextLine();
+        System.out.print("Ingrese el nombre del Edifico: ");
+        String nombreEdificio = a.nextLine();
+
+        System.out.print("Ingrese la Ubicación del Edificio: ");
+        String ubi = a.nextLine();
+
+        Departamento dep = new Departamento(valorMetro, numMetro, nombreEdificio, ubi);
+        dep.establecerCostoFinal();
+        String cadena = String.format("%s - %s - %s - %s", mensaje1, mensaje2
+                                                       , mensaje3, mensaje4);
 
         return cadena;
     }
-    }
 
+    public static String comprobarPropietario(String a) {
+        String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
+                + "\\POO\\trab-final-1bim-grupo02\\ArchivosInmobiliaria\\"
+                + "propietario.dat";
+        String cadena = "";
+        try {
+
+            LecturaPropietario p = new LecturaPropietario(name);
+            p.establecerIdentificador(a);
+            p.establecerPropietarioBuscado();
+            for (int i = 0; i < p.obtenerPropietarioBuscado().obtenerNombre().length; i++) {
+                a = p.obtenerPropietarioBuscado().obtenerNombre()[i];
+                if (a != null) {
+                    cadena = (a + " - ");
+                }
+            }
+        } catch (Exception e) {
+            cadena = ("Propietario no encontrado");
+        }
+
+        return cadena;
+    }
+        public static String comprobarBarrio(String a) {
+        String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
+                + "\\POO\\trab-final-1bim-grupo02\\ArchivosInmobiliaria\\"
+                + "barrio.dat";
+        String cadena = "";
+        try {
+
+            LecturaBarrio p = new LecturaBarrio(name);
+            p.establecerIdentificador(a);
+            p.establecerBarrioBuscado();
+            for (int i = 0; i < p.obtenerPropietarioBuscado()
+                    .obtenerNombreBarrio().size(); i++) {
+                a = p.obtenerPropietarioBuscado().obtenerNombreBarrio().get(i);
+                if (a != null) {
+                    cadena = (a + " - ");
+                }
+            }
+        } catch (Exception e) {
+            cadena = ("Barrio no encontrado");
+        }
+
+        return cadena;
+    }
+            public static String comprobarCiudad(String a) {
+        String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
+                + "\\POO\\trab-final-1bim-grupo02\\ArchivosInmobiliaria\\"
+                + "ciudad.dat";
+        String cadena = "";
+        try {
+
+            LecturaCiudad p = new LecturaCiudad(name);
+            p.establecerIdentificador(a);
+            p.establecerCiudadBuscar();
+            for (int i = 0; i < p.obtenerCiudadBuscar()
+                    .obtenerNombreCiudad().length; i++) {
+                a = p.obtenerCiudadBuscar().obtenerNombreCiudad()[i];
+                if (a != null) {
+                    System.out.println("aaaaaa");
+                    cadena = (a + " - ");
+                }
+            }
+        } catch (Exception e) {
+            cadena = ("Ciudad no encontrado");
+        }
+
+        return cadena;
+    }
+                public static String comprobarConstructora(String a) {
+        String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
+                + "\\POO\\trab-final-1bim-grupo02\\ArchivosInmobiliaria\\"
+                + "constructora.dat";
+        String cadena = "";
+        try {
+
+            LecturaConstructora p = new LecturaConstructora(name);
+            p.establecerIdentificador(a);
+            p.establecerBuscarConstructora();
+            for (int i = 0; i < p.obtenerBuscarConstructora().obtenerIdConstructora().length; i++) {
+                a = p.obtenerBuscarConstructora().obtenerIdConstructora()[i];
+                if (a != null) {
+                    cadena = (a + " - ");
+                }
+            }
+        } catch (Exception e) {
+            cadena = ("Constructora no encontrada.\n");
+        }
+
+        return cadena;
+    }
+}
