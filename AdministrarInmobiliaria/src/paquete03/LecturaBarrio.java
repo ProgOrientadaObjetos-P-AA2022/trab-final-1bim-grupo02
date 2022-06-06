@@ -116,7 +116,7 @@ public class LecturaBarrio {
         return identificador;
     }
 
-    public Barrio obtenerPropietarioBuscado() {
+    public Barrio obtenerBarrioBuscado() {
         return barrioBuscado;
     }
 

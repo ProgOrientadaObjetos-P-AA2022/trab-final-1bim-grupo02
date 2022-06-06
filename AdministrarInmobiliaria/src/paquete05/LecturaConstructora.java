@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class LecturaConstructora {
 
     private ObjectInputStream entrada;
-    private ArrayList<Constructora> propietario;
+    private ArrayList<Constructora> constructora;
     private String nombreArchivo;
     private String identificador;
     private Constructora constructoraBuscar;
@@ -48,14 +48,14 @@ public class LecturaConstructora {
 
     public void establecerListaConstructora() {
         // 
-        propietario = new ArrayList<>();
+        constructora = new ArrayList<>();
         File f = new File(obtenerNombreArchivo());
         if (f.exists()) {
 
             while (true) {
                 try {
                     Constructora registro = (Constructora) entrada.readObject();
-                    propietario.add(registro);
+                    constructora.add(registro);
                 } catch (EOFException endOfFileException) {
                     return; // se llegó al fin del archivo
 
@@ -105,7 +105,7 @@ public class LecturaConstructora {
     }
 
     public ArrayList<Constructora> obtenerListaConstructora() {
-        return propietario;
+        return constructora;
     }
 
     public String obtenerNombreArchivo() {

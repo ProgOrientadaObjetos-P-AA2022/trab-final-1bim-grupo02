@@ -23,15 +23,15 @@ class Ejecutor {
         String mensaje;
         String datosVivienda;
         String option;
+        boolean bandera = true;
 
         System.out.println("\t\tVamos a registrar datos inmobiliarios");
-        System.out.println("Ingrese un número para registrar datos:\n"
+        while(bandera){
+                System.out.println("Ingrese un número para registrar datos:\n"
                 + "[1]Información de Propietario\n"
                 + "[2]Información de Barrios\n"
                 + "[3]Información de Ciudad\n"
-                + "[4]Información de Constructora\n"
-                + "[5]Información de Casa\n"
-                + "[6]Información de Departamento\n");
+                + "[4]Información de Constructora");
         option = a.nextLine();
         switch (option) {
             case "1":
@@ -54,6 +54,15 @@ class Ejecutor {
             default:
                 System.out.println("Ingrese un valor Correcto por favor...");
         }
+            System.out.println("¿Desea registrar más datos?[Si][No]");
+            String banderin = a.nextLine().toLowerCase();
+            if(banderin.equals("si")){
+            bandera = true;
+            }else{
+                bandera = false;
+            }
+        }
+
         System.out.println("\t\tDatos Vivienda");
         System.out.println("Ingrese el número correspondiente para comprobar "
                 + "datos:\n"
@@ -111,7 +120,7 @@ class Ejecutor {
         LecturaPropietario l = new LecturaPropietario(name);
         l.establecerListaPropietario();
         // System.out.println(l);
-        cadena = String.format("%s", l);
+        cadena = String.format("%s", l.obtenerListaPropietario());
         // cadena = String.format("%s\n\t\tLectura del Archivo: %s:", p,l);
 
         return cadena;
@@ -154,7 +163,7 @@ class Ejecutor {
         LecturaBarrio l = new LecturaBarrio(name);
         l.establecerListaBarrio();
         // System.out.println(l);
-        cadena = String.format("%s", l);
+        cadena = String.format("%s", l.obtenerListaBarrio());
         // cadena = String.format("%s\n\t\tLectura del Archivo: %s:", p,l);
 
         return cadena;
@@ -195,7 +204,7 @@ class Ejecutor {
         LecturaCiudad l = new LecturaCiudad(name);
         l.establecerListaCiudad();
         // System.out.println(l);
-        cadena = String.format("%s", l);
+        cadena = String.format("%s", l.obtenerListaCiudad());
         // cadena = String.format("%s\n\t\tLectura del Archivo: %s:", p,l);
         return cadena;
     }
@@ -222,7 +231,8 @@ class Ejecutor {
             System.out.println("---------------------------------------------");
             System.out.printf("Ingresar el nombre de la Constructora %d: ", i + 1);
             nombreConstructora[i] = a.nextLine();
-            System.out.printf("Ingresar la ID de la empresa %s: ", nombreConstructora[i]);
+            System.out.printf("Ingresar la ID de la Constructora %s: "
+                    , nombreConstructora[i]);
             id[i] = a.nextLine();
 
         }
@@ -236,28 +246,36 @@ class Ejecutor {
         LecturaConstructora l = new LecturaConstructora(name);
         l.establecerListaConstructora();
         // System.out.println(l);
-        cadena = String.format("%s", l);
+        cadena = String.format("%s", l.obtenerListaConstructora());
         // cadena = String.format("%s\n\t\tLectura del Archivo: %s:", p,l);
         return cadena;
     }
 
     public static String casa() {
         Scanner a = new Scanner(System.in);
-                String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
+        String cadena;
+        String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
                 + "\\POO\\trab-final-1bim-grupo02\\ArchivosInmobiliaria\\"
                 + "casa.dat";
         System.out.println("\t\t INFORMACIÓN CASA");
-        System.out.println("--------------");
+        
         System.out.print("Ingrese la identificación del Propietario: ");
         String buscarPropietario = a.nextLine();
+        String mensaje1 = comprobarPropietario(buscarPropietario);
         System.out.print("Ingresar nombre Barrio: ");
         String buscarBarrio = a.nextLine();
+        String mensaje2 = comprobarBarrio(buscarBarrio);
         System.out.print("Ingresar nombre Ciudad: ");
         String buscarCiudad = a.nextLine();
+        String mensaje3 = comprobarCiudad(buscarCiudad);
+
         System.out.print("Ingrese el ID de la Empresa: ");
         String buscarEmpresa = a.nextLine();
-        System.out.print("Cotización de los m2: ");
+        String mensaje4 = comprobarConstructora(buscarEmpresa);
+
+        System.out.print("Cotización de los Metros Cuadrados: ");
         double precioMetro = a.nextDouble();
+
         System.out.print("Numero de Metros de la Casa: ");
         double numMetro = a.nextDouble();
         System.out.print("Numero de Cuartos de la Casa: ");
@@ -265,14 +283,22 @@ class Ejecutor {
 
         Casa c = new Casa(precioMetro, numMetro, numCuartos);
         c.establecerCostoFinal();
-        String cadena = "";
+        cadena = String.format("%s\n%s - %s - %s - %s", c,
+                mensaje1,
+                mensaje2,
+                mensaje3,
+                mensaje4);
+
+        EscrituraCasa e = new EscrituraCasa(name, c);
+        e.establecerSalida();
+        e.cerrarArchivo();
 
         return cadena;
     }
 
     public static String departamento() {
         Scanner a = new Scanner(System.in);
-                        String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
+        String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
                 + "\\POO\\trab-final-1bim-grupo02\\ArchivosInmobiliaria\\"
                 + "departamento.dat";
         System.out.println("\t\tINFORMACIÓN DEPARTAMENTO");
@@ -308,11 +334,11 @@ class Ejecutor {
         Departamento dep = new Departamento(valorMetro, numMetro, nombreEdificio, ubi);
         dep.establecerCostoFinal();
         String cadena = String.format("%s\n%s - %s - %s - %s", dep,
-                 mensaje1,
-                 mensaje2,
-                 mensaje3,
-                 mensaje4);
-        
+                mensaje1,
+                mensaje2,
+                mensaje3,
+                mensaje4);
+
         EscrituraDepartamento e = new EscrituraDepartamento(name, dep);
         e.establecerSalida();
         e.cerrarArchivo();
@@ -324,16 +350,18 @@ class Ejecutor {
         String name = "C:\\Users\\ronni\\OneDrive\\Escritorio\\Escritorio2.0"
                 + "\\POO\\trab-final-1bim-grupo02\\ArchivosInmobiliaria\\"
                 + "propietario.dat";
+
         String cadena = "";
         try {
 
             LecturaPropietario p = new LecturaPropietario(name);
             p.establecerIdentificador(a);
             p.establecerPropietarioBuscado();
-            for (int i = 0; i < p.obtenerPropietarioBuscado().obtenerNombre().length; i++) {
+            for (int i = 0; i < p.obtenerPropietarioBuscado()
+                    .obtenerNombre().length; i++) {
                 a = p.obtenerPropietarioBuscado().obtenerNombre()[i];
                 if (a != null) {
-                    cadena = (a + " - ");
+                    cadena = (a);
                 }
             }
         } catch (Exception e) {
@@ -353,17 +381,18 @@ class Ejecutor {
             LecturaBarrio p = new LecturaBarrio(name);
             p.establecerIdentificador(a);
             p.establecerBarrioBuscado();
-            for (int i = 0; i < p.obtenerPropietarioBuscado()
-                    .obtenerNombreBarrio().size(); i++) {
-                a = p.obtenerPropietarioBuscado().obtenerNombreBarrio().get(i);
+            System.out.println(p.obtenerBarrioBuscado().obtenerNombreBarrio().size());
+            for (int i = 0; i < p.obtenerBarrioBuscado().obtenerNombreBarrio().size(); i++) {
+                a = p.obtenerBarrioBuscado().obtenerNombreBarrio().get(i);
                 if (a != null) {
-                    cadena = (a + " - ");
+                    cadena = (a);
                 }
+
             }
         } catch (Exception e) {
-            cadena = ("Barrio no encontrado");
-        }
+            cadena = "Barrio no encontrado";
 
+        }
         return cadena;
     }
 
@@ -381,8 +410,8 @@ class Ejecutor {
                     .obtenerNombreCiudad().length; i++) {
                 a = p.obtenerCiudadBuscar().obtenerNombreCiudad()[i];
                 if (a != null) {
-                    System.out.println("aaaaaa");
-                    cadena = (a + " - ");
+                    // System.out.println("aaaaaa");
+                    cadena = (a);
                 }
             }
         } catch (Exception e) {
@@ -405,13 +434,12 @@ class Ejecutor {
             for (int i = 0; i < p.obtenerBuscarConstructora().obtenerIdConstructora().length; i++) {
                 a = p.obtenerBuscarConstructora().obtenerIdConstructora()[i];
                 if (a != null) {
-                    cadena = (a + " - ");
+                    cadena = (a);
                 }
             }
         } catch (Exception e) {
             cadena = ("Constructora no encontrada.\n");
         }
-        
 
         return cadena;
     }
